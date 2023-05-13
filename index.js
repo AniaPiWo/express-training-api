@@ -1,4 +1,5 @@
 import express from 'express';
+import colors from 'colors';
 import { trainsList } from './data/trains.js';
 
 const app = express()
@@ -15,5 +16,5 @@ app.get('/', async (req, res, next) => {
 })
 
 app.listen(PORT, () => {
-    console.log('[server] Server listening on port 3000')
+    console.log(`[server] Server listening on port ${PORT}`.magenta)
 })
