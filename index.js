@@ -1,12 +1,19 @@
-const express = require('express')
+import express from 'express';
+import { trainsList } from './data/trains.js';
+
 const app = express()
 
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || 3000
 
-app.get('/', (req, res) => {
-    res.send('Hello from Nerdbord!')
+app.get('/', async (req, res, next) => {
+    try {
+        const trains = await trainsList();
+        res.json(trains);
+      } catch (error) {
+        next(error);
+      }
 })
 
 app.listen(PORT, () => {
-    console.log('Server listening on port 3000')
+    console.log('[server] Server listening on port 3000')
 })
