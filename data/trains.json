@@ -1,14 +1,5 @@
 [
   {
-    "id": "1",
-    "trainExpressName": "Shinkansen",
-    "countryOfOrigin": "Japan",
-    "yearOfConstruction": "1964",
-    "maxKilometerPerHour": "320",
-    "destinationFrom": "Tokyo",
-    "destinationTo": "Osaka"
-  },
-  {
     "id": "2",
     "trainExpressName": "Eurostar",
     "countryOfOrigin": "United Kingdom",
