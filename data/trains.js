@@ -29,6 +29,40 @@ const addTrain = async (body) => {
     }
   };
   
+  const removeTrain = async (trainId) => {
+    try {
+      const data = await fs.readFile(trainsPath, 'utf-8');
+      const trains = JSON.parse(data);
+      const updatedTrains = trains.filter((train) => train.id !== trainId);
+      if (updatedTrains.length === trains.length) {
+        throw new Error(`Train not found with ID ${trainId}`);
+      }
+      await fs.writeFile(trainsPath, JSON.stringify(updatedTrains, null, 2));
+    } catch (error) {
+      throw new Error(`Could not remove train with ID ${trainId}: ${error.message}`);
+    }
+  };
 
+  const updateTrain = async (trainId, body) => {
+    try {
+      const data = await fs.readFile(trainsPath, 'utf-8');
+      const trains = JSON.parse(data);
+      const train = trains.find((train) => train.id === trainId);
+      if (!train) {
+        throw new Error(`Train not found with ID ${trainId}`);
+      }
+      const updatedTrain = {
+        ...train,
+        ...body,
+        id: trainId
+      };
+      const updatedTrains = trains.map((t) => (t.id === trainId ? updatedTrain : t));
+      await fs.writeFile(trainsPath, JSON.stringify(updatedTrains, null, 2));
+      return updatedTrain;
+    } catch (error) {
+      throw new Error(`Could not update train with ID ${trainId}: ${error.message}`);
+    }
+  };
+  
 
-export {trainsList, addTrain}
+export {trainsList, addTrain, removeTrain, updateTrain}
